@@ -1,0 +1,271 @@
+/* REUSABLE VARIABLED */
+:root {
+    --playerOneColor: #ff0022;
+    --playerTwoColor: #00cc44;
+    --playerThreeColor: #0066ff;
+    --playerFourColor: #ffdd00;
+
+    --semiWhite: #ffffff;
+    --semiBlack: #333333;
+}
+
+/* INITIALIZE VIEWPORT */
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* BOARD LAYOUT */
+#ludo-board {
+    display: grid;
+    grid-template-columns: repeat(15, 5vw);
+    grid-template-rows: repeat(15, 5vw);
+    gap: 1px;
+    background-color: var(--semiBlack);
+    border: 10px solid var(--semiBlack);
+    border-radius: 8%;
+    overflow: hidden;
+}
+
+/* CORNER CELLS */
+.corner-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    grid-row: span 6;
+    grid-column: span 6;
+} #player-one {
+    grid-area: 1 / 1 / 7 / 7;
+    background-color: var(--playerOneColor);
+} #player-two {
+    grid-area: 1 / 10 / 7 / 16;
+    background-color: var(--playerTwoColor);
+} #player-three {
+    grid-area: 10 / 1 / 16 / 7;
+    background-color: var(--playerThreeColor);
+} #player-four {
+    grid-area: 10 / 10 / 16 / 16;
+    background-color: var(--playerFourColor);
+}
+.corner-cell p {
+    display: none;
+}
+.piece-area {
+    width: 70%;
+    height: 70%;
+    background-color: var(--semiWhite);
+    border-radius: 12%;
+}
+#player-one.active-turn, #player-two.active-turn, #player-three.active-turn, #player-four.active-turn {
+    animation: pulse 1s infinite;
+    box-shadow: inset 0 0 100px #00000000; /* Example initial shadow with semi-transparency */
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: inset 0 0 100px #00000000; /* Less prominent shadow */
+    }
+    50% {
+        box-shadow: inset 0 0 100px #00000066; /* More prominent shadow */
+    }
+}
+
+/* PATH CELLS */
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--semiWhite);
+} #cell-20, #cell-35, #cell-36, #cell-37, #cell-38, #cell-39, #cell-40 {
+    /* P1 Path Cells */
+    background-color: var(--playerOneColor);
+} #cell-6, #cell-5, #cell-8, #cell-11, #cell-14, #cell-17, #cell-26, #cell-6 {
+    /* P2 Path Cells */
+    background-color: var(--playerTwoColor);
+} #cell-76, #cell-77, #cell-74, #cell-71, #cell-68, #cell-65, #cell-56 {
+    /* P3 Path Cells */
+    background-color: var(--playerThreeColor);
+} #cell-62, #cell-47, #cell-46, #cell-45, #cell-44, #cell-43, #cell-42 {
+    /* P4 Path Cells */
+    background-color: var(--playerFourColor);
+}
+.space-number {
+    display: none;
+}
+
+/* PLAYER PIECE SPACES */
+.piece-space {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 42%;
+    left: 42%;
+    width: 16%;
+    height: 16%;
+    border-radius: 100%;
+}
+#player-one .piece-space { background-color: var(--playerOneColor); }
+#player-two .piece-space { background-color: var(--playerTwoColor); }
+#player-three .piece-space { background-color: var(--playerThreeColor); }
+#player-four .piece-space { background-color: var(--playerFourColor); }
+
+.corner-cell .piece-space:nth-of-type(1) {
+    transform: translateX(-100%) translateY(-100%);
+} .corner-cell .piece-space:nth-of-type(2) {
+    transform: translateX(100%) translateY(-100%);
+} .corner-cell .piece-space:nth-of-type(3) {
+    transform: translateX(100%) translateY(100%);
+} .corner-cell .piece-space:nth-of-type(4) {
+    transform: translateX(-100%) translateY(100%);
+}
+
+/* SPECIAL CELLS */
+#cell-25, #cell-27, #cell-55, #cell-57 {
+    opacity: 0;
+}
+
+#cell-40 {
+    width: 150%; 
+    height: 300%;
+    transform: translateY(-33.4%);
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+}
+#cell-26 {
+    width: 300%;
+    height: 150%;
+    transform: translateX(-33.4%);
+    clip-path: polygon(50% 100%, 100% 0, 0 0);
+}
+#cell-42 {
+    width: 150%;
+    height: 300%;
+    transform: translate(-33.4%, -33.4%);
+    clip-path: polygon(0 50%, 100% 100%, 100% 0);
+}
+#cell-56 {
+    width: 300%;
+    height: 150%;
+    transform: translate(-33.4%, -33.4%);
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+}
+
+.star {
+    width: 70%;
+    height: 70%;
+}
+.arrow {
+    width: 70%;
+    height: 70%;
+} #cell-34 .arrow {
+    fill: var(--playerOneColor);
+    transform: rotate(-90deg);
+} #cell-2 .arrow {
+    fill: var(--playerTwoColor);
+} #cell-80 .arrow {
+    fill: var(--playerThreeColor);
+    transform: rotate(180deg);
+} #cell-48 .arrow {
+    fill: var(--playerFourColor);
+    transform: rotate(90deg);
+} #cell-20 .arrow {
+    fill: var(--semiWhite);
+    transform: rotate(90deg);
+} #cell-6 .arrow {
+    fill: var(--semiWhite);
+    transform: rotate(180deg);
+} #cell-76 .arrow {
+    fill: var(--semiWhite);
+} #cell-62 .arrow {
+    fill: var(--semiWhite);
+    transform: rotate(-90deg);
+}
+
+#cell-41 {
+    z-index: 1;
+    width: calc(300% + 2px);
+    height: calc(300% + 2px);
+    transform: translate(-33.5%, -33.5%);
+    background-color: transparent;
+}
+
+/* DICE */
+#dice-roll {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    font-size: 4vw;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #dddddd;
+    border: none;
+    border-radius: 15%;
+    box-shadow: inset 5px 5px 10px #ffffff, inset -5px -5px 10px #00000066, 5px 5px 10px #00000066;
+    transition: transform 0.2s;
+}
+#dice-roll:active {
+    transform: scale(1.5);
+}
+
+/* PIECES */
+.piece {
+    z-index: 2;
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    border: 1px solid white;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.p1-piece {
+    background-color: var(--playerOneColor);
+    box-shadow: inset 1px 1px 4px #ffcdcd, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
+}
+.p2-piece {
+    background-color: var(--playerTwoColor);
+    box-shadow: inset 1px 1px 4px #c1ffe0, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
+}
+.p3-piece {
+    background-color: var(--playerThreeColor);
+    box-shadow: inset 1px 1px 4px #c1e0ff, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
+}
+.p4-piece {
+    background-color: var(--playerFourColor);
+    box-shadow: inset 1px 1px 4px #fffcd0, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
+}
+
+/* LANDSCAPE ADJUSTMENTS */
+@media (orientation: landscape) {
+    #ludo-board {
+        grid-template-columns: repeat(15, 5vh);
+        grid-template-rows: repeat(15, 5vh);
+    }
+    #dice-roll {
+        font-size: 4vh;
+    }
+    .piece {
+        width: 3vh;
+        height: 3vh;
+    }
+}
