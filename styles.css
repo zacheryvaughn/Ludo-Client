@@ -12,10 +12,10 @@
 
 /* REUSABLE VARIABLED */
 :root {
-    --playerOneColor: #ff0022;
-    --playerTwoColor: #00cc44;
-    --playerThreeColor: #ffdd00;
-    --playerFourColor: #0066ff;
+    --playerOneColor: #e6153e;
+    --playerTwoColor: #15d75c;
+    --playerThreeColor: #ffe226;
+    --playerFourColor: #177dea;
 
     --semiWhite: #ffffff;
     --semiBlack: #333333;
@@ -54,18 +54,16 @@ header {
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100vw;
-    height: 68px;
+    height: 80px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid var(--bg2);
 }
 #header-left {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 20px;
     transform: translateY(2px);
 }
 #header-left h1 {
@@ -82,8 +80,7 @@ header {
 main {
     position: absolute;
     width: 100vw;
-    height: calc(100vh - 68px);
-    top: 68px;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,8 +90,8 @@ main {
 /* BOARD LAYOUT */
 #ludo-board {
     display: grid; /* change to grid */
-    grid-template-columns: repeat(15, 5vw);
-    grid-template-rows: repeat(15, 5vw);
+    grid-template-columns: repeat(15, 6vw);
+    grid-template-rows: repeat(15, 6vw);
     gap: 1px;
     background-color: var(--bg3);
     border: 10px solid var(--bg2);
@@ -264,27 +261,23 @@ main {
 .piece {
     z-index: 2;
     position: absolute;
-    width: 3vw;
-    height: 3vw;
-    border: 1px solid white;
+    width: 4vw;
+    height: 4vw;
+    border: 3px solid var(--bg2);
     border-radius: 100%;
     cursor: pointer;
 }
 .p1-piece {
     background-color: var(--playerOneColor);
-    box-shadow: inset 1px 1px 4px #ffcdcd, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
 }
 .p2-piece {
     background-color: var(--playerTwoColor);
-    box-shadow: inset 1px 1px 4px #c1ffe0, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
 }
 .p3-piece {
     background-color: var(--playerThreeColor);
-    box-shadow: inset 1px 1px 4px #c1e0ff, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
 }
 .p4-piece {
     background-color: var(--playerFourColor);
-    box-shadow: inset 1px 1px 4px #fffcd0, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
 }
 
 #rolling-dice {
@@ -304,7 +297,7 @@ main {
 .side {
     opacity: 0;
     position: absolute;
-    width: 7vw;
+    width: 8vw;
     transition: transform 0.3s ease-out;
 }
 
@@ -332,17 +325,17 @@ main {
 /* LANDSCAPE ADJUSTMENTS */
 @media (orientation: landscape) {
     #ludo-board {
-        grid-template-columns: repeat(15, 5vh);
-        grid-template-rows: repeat(15, 5vh);
+        grid-template-columns: repeat(15, 6vh);
+        grid-template-rows: repeat(15, 6vh);
     }
     .piece {
-        width: 3vh;
-        height: 3vh;
+        width: 4vh;
+        height: 4vh;
     }
     #dice-gif {
         width: 10vh;
     }
     .side {
-        width: 7vh;
+        width: 8vh;
     }
 }
