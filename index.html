@@ -9,14 +9,19 @@
     <meta name="description"
         content="Dive into the vibrant world of Ludo! Experience the classic board game online! Perfect for friends and family, Ludo offers a captivating visual twist, adding an extra layer of excitement to the timeless strategy game. Get ready to light up your game night with this dynamic and colorful version of Ludo. Play, strategize, and conquer the board in a spectacle of glowing brilliance." />
     <title>Ludo</title>
-    <link rel="icon" href="images/favicon.png" />
+    <link rel="icon" href="images/lm-games-logo.png" />
+    <link rel="apple-touch-icon" href="images/icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://kit.fontawesome.com/1df6dff833.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 </head>
 
 <body>
     <header>
-        <h1>Ludo</h1>
+        <div id="header-left">
+            <img src="images/lm-games-logo.png" alt="lingo mingle games logo">
+            <h1>Ludo</h1>
+        </div>
     </header>
     <main>
         <div id="ludo-board">
@@ -28,6 +33,7 @@
                     <div class="piece-space" id="p1s3"><div class="piece p1-piece" id="p1p3"></div></div>
                     <div class="piece-space" id="p1s4"><div class="piece p1-piece" id="p1p1"></div></div>
                 </div>
+                <div id="player-one-window"></div>
             </div>
             <div class="cell corner-cell" id="player-two"><p>Player Two</p>
                 <div class="piece-area">
@@ -106,8 +112,17 @@
             <div class="cell" id="cell-38"><p class="space-number">38</p></div>
             <div class="cell" id="cell-39"><p class="space-number">39</p></div>
             <div class="cell" id="cell-40"><p class="space-number">40</p></div>
-            <div class="cell" id="cell-41"><p class="space-number">41</p>
-                <button id="dice-roll">1</button>
+            <div class="cell" id="cell-41"><p class="space-number">41</p>    
+                <div id="rolling-dice">
+                    <audio id="dice-roll-audio" src="audio/rolling-sound.mp3" preload="auto"></audio>
+                    <img id="dice-gif" src="images/dice-rolling/480-fast-roll.gif" alt="rolling dice gif">
+                    <img id="side1" class="side" src="images/dice-sides/side1.png" alt="dice rolled 1">
+                    <img id="side2" class="side" src="images/dice-sides/side2.png" alt="dice rolled 2">
+                    <img id="side3" class="side" src="images/dice-sides/side3.png" alt="dice rolled 3">
+                    <img id="side4" class="side" src="images/dice-sides/side4.png" alt="dice rolled 4">
+                    <img id="side5" class="side" src="images/dice-sides/side5.png" alt="dice rolled 5">
+                    <img id="side6" class="side" src="images/dice-sides/side6.png" alt="dice rolled 6">
+                </div>
             </div>
             <div class="cell" id="cell-42"><p class="space-number">42</p></div>
             <div class="cell" id="cell-43"><p class="space-number">43</p></div>
@@ -164,7 +179,8 @@
         </div>
     </main>
     <footer></footer>
-    <script src="script.js"></script>
+    <script src="client.js"></script>
+    <script src="dice.js"></script>
 </body>
 
 </html>

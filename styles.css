@@ -1,12 +1,42 @@
+.space-number, .corner-cell p {
+    z-index: 2;
+    position: absolute;
+    pointer-events: none;
+    display: none;
+}
+
+@font-face {
+    font-family: 'Cakecafe';
+    src: url('fonts/Cakecafe.otf') format('opentype');
+}
+
 /* REUSABLE VARIABLED */
 :root {
     --playerOneColor: #ff0022;
     --playerTwoColor: #00cc44;
-    --playerThreeColor: #0066ff;
-    --playerFourColor: #ffdd00;
+    --playerThreeColor: #ffdd00;
+    --playerFourColor: #0066ff;
 
     --semiWhite: #ffffff;
     --semiBlack: #333333;
+
+    --primary: #44ccff;
+    --warningOrange: #ff6633;
+    --greenStart: #44ff66;
+    --redStop: #ff4444;
+    --outgoingMessage: rgb(0, 165, 220);
+
+    --bg0: #0a0d10;
+    --bg1: #1a1d20;
+    --bg2: #2a2d30;
+    --bg3: #3a3d40;
+    --bg4: #4a4d50;
+    --bg5: #5a5d60;
+
+    --ftBase: #eee;
+    --ftBlue: #eee;
+
+    --shadow: #00000066;
 }
 
 /* INITIALIZE VIEWPORT */
@@ -16,19 +46,44 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    background-color: var(--bg0);
 }
 header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-main {
     width: 100vw;
-    height: 100vh;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--bg2);
+}
+#header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(2px);
+}
+#header-left h1 {
+    color: var(--ftBase);
+    font-family: Cakecafe, sans-serif;
+    font-size: 40px;
+    transform: rotate(2deg) translateY(3px)
+}
+#header-left img {
+    height: 40px;
+    transform: rotate(-26deg) translateY(-5px);
+}
+
+main {
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - 68px);
+    top: 68px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,12 +92,12 @@ main {
 
 /* BOARD LAYOUT */
 #ludo-board {
-    display: grid;
+    display: grid; /* change to grid */
     grid-template-columns: repeat(15, 5vw);
     grid-template-rows: repeat(15, 5vw);
     gap: 1px;
-    background-color: var(--semiBlack);
-    border: 10px solid var(--semiBlack);
+    background-color: var(--bg3);
+    border: 10px solid var(--bg2);
     border-radius: 8%;
     overflow: hidden;
 }
@@ -62,14 +117,11 @@ main {
     grid-area: 1 / 10 / 7 / 16;
     background-color: var(--playerTwoColor);
 } #player-three {
-    grid-area: 10 / 1 / 16 / 7;
+    grid-area: 10 / 10 / 16 / 16;
     background-color: var(--playerThreeColor);
 } #player-four {
-    grid-area: 10 / 10 / 16 / 16;
+    grid-area: 10 / 1 / 16 / 7;
     background-color: var(--playerFourColor);
-}
-.corner-cell p {
-    display: none;
 }
 .piece-area {
     width: 70%;
@@ -84,10 +136,10 @@ main {
 
 @keyframes pulse {
     0%, 100% {
-        box-shadow: inset 0 0 100px #00000000; /* Less prominent shadow */
+        box-shadow: inset 0 0 0 200px #00000000; /* Less prominent shadow */
     }
     50% {
-        box-shadow: inset 0 0 100px #00000066; /* More prominent shadow */
+        box-shadow: inset 0 0 0 200px #00000066; /* More prominent shadow */
     }
 }
 
@@ -103,15 +155,12 @@ main {
 } #cell-6, #cell-5, #cell-8, #cell-11, #cell-14, #cell-17, #cell-26, #cell-6 {
     /* P2 Path Cells */
     background-color: var(--playerTwoColor);
-} #cell-76, #cell-77, #cell-74, #cell-71, #cell-68, #cell-65, #cell-56 {
+} #cell-62, #cell-47, #cell-46, #cell-45, #cell-44, #cell-43, #cell-42 {
     /* P3 Path Cells */
     background-color: var(--playerThreeColor);
-} #cell-62, #cell-47, #cell-46, #cell-45, #cell-44, #cell-43, #cell-42 {
+} #cell-76, #cell-77, #cell-74, #cell-71, #cell-68, #cell-65, #cell-56 {
     /* P4 Path Cells */
     background-color: var(--playerFourColor);
-}
-.space-number {
-    display: none;
 }
 
 /* PLAYER PIECE SPACES */
@@ -174,6 +223,7 @@ main {
 .star {
     width: 70%;
     height: 70%;
+    fill: var(--bg3)
 }
 .arrow {
     width: 70%;
@@ -184,10 +234,10 @@ main {
 } #cell-2 .arrow {
     fill: var(--playerTwoColor);
 } #cell-80 .arrow {
-    fill: var(--playerThreeColor);
+    fill: var(--playerFourColor);
     transform: rotate(180deg);
 } #cell-48 .arrow {
-    fill: var(--playerFourColor);
+    fill: var(--playerThreeColor);
     transform: rotate(90deg);
 } #cell-20 .arrow {
     fill: var(--semiWhite);
@@ -208,24 +258,6 @@ main {
     height: calc(300% + 2px);
     transform: translate(-33.5%, -33.5%);
     background-color: transparent;
-}
-
-/* DICE */
-#dice-roll {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    font-size: 4vw;
-    font-weight: 600;
-    cursor: pointer;
-    background-color: #dddddd;
-    border: none;
-    border-radius: 15%;
-    box-shadow: inset 5px 5px 10px #ffffff, inset -5px -5px 10px #00000066, 5px 5px 10px #00000066;
-    transition: transform 0.2s;
-}
-#dice-roll:active {
-    transform: scale(1.5);
 }
 
 /* PIECES */
@@ -255,17 +287,62 @@ main {
     box-shadow: inset 1px 1px 4px #fffcd0, inset -1px -1px 4px #000000, 1px 1px 3px #00000099;
 }
 
+#rolling-dice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dice-gif {
+    opacity: 0;
+    position: absolute;
+    width: 10vw;
+    transition: transform 0.3s;
+}
+
+.side {
+    opacity: 0;
+    position: absolute;
+    width: 7vw;
+    transition: transform 0.3s ease-out;
+}
+
+@keyframes pop-in-out {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.6); }
+    50% { transform: scale(1.7); }
+    75% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+
+#dice-gif.active {
+    animation: pop-in-out 0.8s ease-out;
+    opacity: 1;
+}
+
+.side.active {
+    opacity: 1;
+    filter: drop-shadow(4px 8px 12px #00000066);
+}
+
+
+
+
 /* LANDSCAPE ADJUSTMENTS */
 @media (orientation: landscape) {
     #ludo-board {
         grid-template-columns: repeat(15, 5vh);
         grid-template-rows: repeat(15, 5vh);
     }
-    #dice-roll {
-        font-size: 4vh;
-    }
     .piece {
         width: 3vh;
         height: 3vh;
+    }
+    #dice-gif {
+        width: 10vh;
+    }
+    .side {
+        width: 7vh;
     }
 }
